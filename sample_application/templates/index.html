@@ -1,0 +1,302 @@
+{% extends "adminlte/base.html" %}
+{% import "adminlte/layout.html" as layout with context %}
+{% import "adminlte/widgets.html" as widgets with context %}
+
+{% block navbar %}
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <li class="dropdown user user-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-user"></i>
+                <span>{{ current_user.full_name }} <i class="caret"></i></span>
+              </a>
+              <ul class="dropdown-menu">
+                <!-- User image -->
+                <li class="user-header bg-light-blue">
+                  <img src="{{ current_user.avatar }}" class="img-circle" alt="User Image" />
+                  <p>
+                    {{ current_user.full_name }} - Data Scientist
+                    <small>Member since {{ current_user.created_at.strftime("%b. %Y") }}</small>
+                  </p>
+                </li>
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="pull-left">
+                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  </div>
+                  <div class="pull-right">
+                    <a href="{{ url_for('login') }}" class="btn btn-default btn-flat">Sign out</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+{%- endblock navbar %}
+{% block sidebar -%}
+        <!-- sidebar: style can be found in sidebar.less -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="{{ current_user.avatar }}" alt="User Image" class="img-circle">
+            </div>
+            <div class="pull-left info">
+              <p>{{ current_user.full_name }}</p>
+              <a href="#">
+                <i class="fa fa-circle text-success"></i>
+                Online
+              </a>
+            </div>
+          </div>
+          <ul class="sidebar-menu">
+          <li class="header">HEADER</li>
+            <li class="active">
+              <a href="{{ url_for('index') }}">
+                <i class="fas fa-table"></i> <span>Input & Data Cleaning</span>
+              </a>
+            </li>
+
+
+            <li>
+              <a href="{{ url_for('index') }}">
+                <i class="fas fa-chart-pie"></i> <span>Keyword Distribution</span>
+              </a>
+            </li>
+
+
+            <li>
+              <a href="{{ url_for('index') }}">
+                <i class="fas fa-comment-dots"></i> <span>Sentiment Analysis</span>
+              </a>
+            </li>
+
+
+            <li>
+              <a href="{{ url_for('index') }}">
+                <i class="fas fa-users"></i> <span>Themetic Analysis</span>
+              </a>
+            </li>
+
+
+            <li>
+              <a href="{{ url_for('index') }}">
+                <i class="fas fa-eraser"></i> <span>Extras</span>
+              </a>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-folder"></i>
+                <span>Examples</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li>
+                  <a href="{{ url_for('login') }}">
+                    <i class="fa fa-circle-o"></i>
+                    Login
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ url_for('lockscreen') }}">
+                    <i class="fa fa-circle-o"></i>
+                    Lockscreen
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+        <!-- /.sidebar -->
+{%- endblock sidebar %}
+{% block content_header -%}
+
+
+<div class="row">
+<div class="col-md-6">
+<div class="box box-solid box-primary">
+  <div class="box-header">
+    <h3 class="box-title">File Input</h3>
+  </div>
+    <div class="box-tools pull-right">
+      <!-- Buttons, labels, and many other things can be placed here! -->
+      <!-- Here is a label for example -->
+    </div>
+    <!-- /.box-tools -->
+  <!-- /.box-header -->
+  <div class="box-body">
+    <div class="form-group">
+      <label for="fileInput">Input csv file</label>
+      <input type="file" class="form-control" id="fileInput" placeholder="No file">
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="header" checked>
+      <label for="header">Include Header</label>
+    </div>
+
+  <div class="form-group">
+    <label for="seperator"> Choose Seperator</label>
+    <select class="form-control" id="seperator">
+      <option>Comma (,)</option>
+      <option>Semi-Colon (;) </option>
+    </select>
+  </div>
+
+
+  </div>
+  <!-- /.box-body -->
+</div>
+
+<!-- /.box -->
+</div>
+
+<div class="col-md-6">
+<div class="box box-solid box-primary">
+  <div class="box-header">
+    <h3 class="box-title">Text Cleanings</h3>
+  </div>
+    <div class="box-tools pull-right">
+      <!-- Buttons, labels, and many other things can be placed here! -->
+      <!-- Here is a label for example -->
+    </div>
+    <!-- /.box-tools -->
+  <!-- /.box-header -->
+  <div class="box-body">
+    <div class="form-group">
+      <input type="checkbox" class="form-check-input" id="includeURL" checked>
+      <label for="includeURL">Drop URL's</label>
+    </div>
+
+    <div class="form-group">
+      <input type="checkbox" class="form-check-input" id="includeURL" checked>
+      <label for="includeURL">Remove Stopwords</label>
+    </div>
+
+    <div class="form-group">
+      <input type="checkbox" class="form-check-input" id="includeURL" checked>
+      <label for="includeURL">Remove Punctuations</label>
+    </div>
+
+  </div>
+  <!-- /.box-body -->
+</div>
+
+<!-- /.box -->
+</div>
+
+</div>
+
+
+          <h1>
+            Dashboard
+            <small>Preview page</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+          </ol>
+{%- endblock content_header %}
+{% block content -%}
+          <h4 class="page-header">
+            AdminLTE Small Boxes
+            <small>Small boxes are used for viewing statistics. To create a small box use the <code>widgets.small_box</code> widget.</small>
+          </h4>
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+
+            {{
+              widgets.small_box(
+                bgcolor="bg-aqua",
+                header=150,
+                body="New Orders",
+                iconclass="ion ion-bag",
+                footerlink="#"
+              )
+            }}
+
+            {{
+              widgets.small_box(
+                bgcolor="bg-green",
+                header=53,
+                body="Bounce Rate",
+                iconclass="ion ion-stats-bars",
+                footerlink="#"
+              )
+            }}
+
+            {{
+              widgets.small_box(
+                bgcolor="bg-yellow",
+                header=43,
+                body="User Registrations",
+                iconclass="ion ion-person-add",
+                footerlink="#"
+              )
+            }}
+
+            {{
+              widgets.small_box(
+                bgcolor="bg-red",
+                header=65,
+                body="Unique Visitors",
+                iconclass="ion ion-pie-graph",
+                footerlink="#"
+              )
+            }}
+
+          </div><!-- /.row -->
+
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+
+            {{
+              widgets.small_box(
+                bgcolor="bg-blue",
+                header=230,
+                body="Sales",
+                iconclass="ion ion-ios7-cart-outline",
+                footerlink="#"
+              )
+            }}
+
+            {{
+              widgets.small_box(
+                bgcolor="bg-purple",
+                header=80,
+                percentage=True,
+                body="Conversion Rate",
+                iconclass="ion ion-ios7-briefcase-outline",
+                footerlink="#"
+              )
+            }}
+
+            {{
+              widgets.small_box(
+                bgcolor="bg-teal",
+                header=14,
+                body="Notifications",
+                iconclass="ion ion-ios7-alarm-outline",
+                footerlink="#"
+              )
+            }}
+
+            {{
+              widgets.small_box(
+                bgcolor="bg-maroon",
+                header=160,
+                body="Products",
+                iconclass="ion ion-ios7-pricetag-outline",
+                footerlink="#"
+              )
+            }}
+
+          </div><!-- /.row -->
+{%- endblock content %}
